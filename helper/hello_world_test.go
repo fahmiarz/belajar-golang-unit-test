@@ -8,6 +8,70 @@ import (
 	"testing"
 )
 
+func BenchmarkTable(b *testing.B) {
+	benchmarks := []struct {
+		name    string
+		request string
+	}{
+		{
+			name:    "Fahmi",
+			request: "Fahmi",
+		},
+		{
+			name:    "Arzalega",
+			request: "Arzalega",
+		},
+		{
+			name:    "FahmiArzalega",
+			request: "Fahmi Arzalega Seazz",
+		},
+		{
+			name:    "Budi",
+			request: "Budi Nugraha",
+		},
+	}
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(benchmark.request)
+			}
+		})
+	}
+
+	for _, benchmark := range benchmarks {
+		b.Run(benchmark.name, func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				HelloWorld(benchmark.request)
+			}
+		})
+	}
+}
+
+func BenchmarkSub(b *testing.B) {
+	b.Run("Fahmi", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Fahmi")
+		}
+	})
+	b.Run("Kurniawan", func(b *testing.B) {
+		for i := 0; i < b.N; i++ {
+			HelloWorld("Kurniawan")
+		}
+	})
+
+}
+
+func BenchmarkHelloWorldFahmi(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Fahmi")
+	}
+}
+func BenchmarkHelloWorldKurniawan(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		HelloWorld("Kurniawan")
+	}
+}
+
 func TestTableHelloWorld(t *testing.T) { //table test
 	tests := []struct {
 		name     string
